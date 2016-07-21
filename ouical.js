@@ -27,7 +27,7 @@
         '&sprop=&sprop=name:'
       ].join(''));
       return '<a class="icon-google" target="_blank" href="' +
-        href + '">Google Calendar</a>';
+        href + '">Google</a>';
     },
 
     yahoo: function(event) {
@@ -60,7 +60,7 @@
       ].join(''));
 
       return '<a class="icon-yahoo" target="_blank" href="' +
-        href + '">Yahoo! Calendar</a>';
+        href + '">Yahoo!</a>';
     },
 
     ics: function(event, eClass, calendarName) {
@@ -82,11 +82,11 @@
           'END:VCALENDAR'].join('\n'));
 
       return '<a class="' + eClass + '" target="_blank" href="' +
-        href + '">' + calendarName + ' Calendar</a>';
+        href + '">' + calendarName + '</a>';
     },
 
     ical: function(event) {
-      return this.ics(event, 'icon-ical', 'iCal');
+      return this.ics(event, 'icon-ical', 'iCalendar');
     },
 
     outlook: function(event) {
@@ -96,10 +96,10 @@
 
   var generateCalendars = function(event) {
     return {
-      google: calendarGenerators.google(event),
-      yahoo: calendarGenerators.yahoo(event),
       ical: calendarGenerators.ical(event),
-      outlook: calendarGenerators.outlook(event)
+      outlook: calendarGenerators.outlook(event),
+      google: calendarGenerators.google(event),
+      yahoo: calendarGenerators.yahoo(event)
     };
   };
 
@@ -122,7 +122,7 @@
   // Make sure we have the necessary event data, such as start time and event duration
   var validParams = function(params) {
     return params.data !== undefined && params.data.start !== undefined &&
-      (params.data.end !== undefined || params.data.duration !== undefined);
+        (params.data.end !== undefined || params.data.duration !== undefined);
   };
 
   var generateMarkup = function(calendars, clazz, calendarId) {
@@ -133,10 +133,8 @@
       links += calendars[services];
     });
 
-    result.innerHTML = '<label for="checkbox-for-' +
-        calendarId + '" class="add-to-calendar-checkbox">Add to my Calendar</label>';
-    result.innerHTML += '<input name="add-to-calendar-checkbox" class="add-to-calendar-checkbox" id="checkbox-for-' + calendarId + '" type="checkbox">';
-
+    result.innerHTML = '<input name="add-to-calendar-checkbox" class="add-to-calendar-checkbox" id="checkbox-for-' + calendarId + '" type="checkbox">';
+    result.innerHTML += '<label for="checkbox-for-' + calendarId + '" class="add-to-calendar-checkbox">Add to Calendar</label>';
     result.innerHTML += '<div class="add-to-calendar-container">' + links + '</div>';
 
     result.className = 'add-to-calendar';
